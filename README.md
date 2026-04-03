@@ -35,7 +35,6 @@ A gateway exposed on the wrong interface may not be critical on its own. A skill
 Trent is built to evaluate those interactions.
 It does not just flag isolated misconfigurations. It models how configuration, permissions, connectivity, and data access work together across your OpenClaw setup, then prioritizes findings by exploitability and blast radius.
 
-## Example findings
 ## Screenshots
 
 <p align="center">
@@ -92,15 +91,7 @@ Trent does not store your configuration data after the assessment completes.
 
 ## **Contributing**
 
-Found a false positive, a missed attack pattern, or a usability problem?
-- **False positive:**
-    Open an issue
-- **False negative:**
-    Open an issue
-- **Feature request:**
-    Open an issue
-- **Bug report:**
-    Open an issue
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## **About Trent**
 
