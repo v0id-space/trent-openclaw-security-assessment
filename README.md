@@ -50,25 +50,61 @@ It does not just flag isolated misconfigurations. It models how configuration, p
 
 ## Quick start
 
-- **Requires:** A running OpenClaw setup with `~/.openclaw`  directory.
+- **Requires:** A running OpenClaw setup with `~/.openclaw` directory.
+
 1. **Get an API key** at [trent.ai](https://trent.ai/openclaw/) → **Get OpenClaw Access**.
 2. **Install the [skill](https://clawhub.ai/trent-ai-release/trentclaw)** (use `--force` to upgrade):
-    
+
     ```bash
-    clawhub install trentclaw
+    npx clawhub install trentclaw
     ```
-    
-3. **Set your key** in the OpenClaw UI → **Skills → Workplace Skills → Set Key**.
-4. **Run an audit**. Start a new agent session and ask:
-    
+
+3. **Set your key:**
+
+    ```bash
+    openclaw config set skills.entries.trent-openclaw-security.apiKey YOUR_TRENT_API_KEY
+    ```
+
+3. **Restart Gateway:**
+
+    ```bash
+    openclaw gateway restart
+    ```
+
+4. **Run an audit.** Start a new agent session and ask:
+
     ```
     Audit my OpenClaw setup for security risks using trent
     ```
-    
+
+## Advanced setup (recommended for production)
+
+Use OpenClaw's secrets management to store your key in a file instead of plaintext config. This is recommended for headless or systemd-managed deployments.
+
+1. **Create a secrets file** with restricted permissions:
+
+    ```bash
+    echo '{ "TRENT_API_KEY": "YOUR_TRENT_API_KEY" }' > ~/.openclaw/.trent.env
+    chmod 600 ~/.openclaw/.trent.env
+    ```
+
+2. **Add a file provider and configure the secret:**
+
+    ```bash
+    openclaw secrets configure
+    ```
+
+    - Add provider: source=`file`, alias=`trent`, path=`/home/<user>/.openclaw/.trent.env`, mode=`json`
+    - Select field: `skills.entries.trent-openclaw-security.apiKey`
+    - Source: `file`, provider: `trent`, id: `/TRENT_API_KEY`
+    - Apply the plan
+
+For more provider options (1Password, HashiCorp Vault, SOPS, and others), see the
+[OpenClaw Secrets documentation](https://docs.openclaw.ai/gateway/secrets).
 
 ## API keys
 
-Create, view, revoke, and rotate keys at [trent.ai](https://trent.ai/openclaw/). After rotating, update the key in **Skills → Workplace Skills → Set Key**.
+Create, view, revoke, and rotate keys at [trent.ai](https://trent.ai/openclaw/). After rotating, run the setup steps above again with the new key.
 
 ## Privacy
 
