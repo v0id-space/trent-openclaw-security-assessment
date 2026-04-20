@@ -198,7 +198,7 @@ def is_code_file(path: pathlib.Path) -> bool:
 def count_code_files(directory: pathlib.Path) -> int:
     """Recursively count code files, skipping venv-like dirs."""
     count = 0
-    for root, dirs, files in os.walk(directory):
+    for _root, dirs, files in os.walk(directory):
         dirs[:] = [d for d in dirs if not should_skip_dir(d)]
         count += sum(1 for f in files if pathlib.Path(f).suffix.lower() in CODE_EXTENSIONS)
     return count
