@@ -56,7 +56,7 @@ It does not just flag isolated misconfigurations. It models how configuration, p
 2. **Install the [skill](https://clawhub.ai/trent-ai-release/trentclaw)** (use `--force` to upgrade):
 
     ```bash
-    npx clawhub install trentclaw
+    openclaw skills install trentclaw
     ```
 
 3. **Set your key:**
